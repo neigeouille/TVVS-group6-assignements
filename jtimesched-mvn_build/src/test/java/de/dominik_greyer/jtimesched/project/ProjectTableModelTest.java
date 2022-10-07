@@ -5,6 +5,7 @@ import de.dominik_geyer.jtimesched.project.Project;
 import de.dominik_geyer.jtimesched.project.ProjectTableModel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,23 +17,29 @@ import java.util.stream.Stream;
 
 public class ProjectTableModelTest {
 
+    private static ArrayList<Project> arrProj;
+    private static ProjectTableModel tableModel;
+
     @BeforeAll
-    public static void initialize() {
-        System.out.println("hello");
+    public static void beforeAll() {
         JTimeSchedApp.main(null); // Necessary to initialize the logger.
-        System.out.println("hello");
     }
-    @ParameterizedTest
-    @MethodSource("provideIntPair")
-    public void testSetValueAt(Object value, int row, int column) {
+
+    @BeforeEach
+    public void beforeEach() {
         // Given
-        ArrayList<Project> arrProj = new ArrayList<>();
+        arrProj = new ArrayList<>();
 
         for (int i = 0; i < 10 ; i++) {
             arrProj.add(new Project());
         }
 
-        ProjectTableModel tableModel = new ProjectTableModel(arrProj);
+        tableModel = new ProjectTableModel(arrProj);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideSetValue")
+    public void testSetValueAt(Object value, int row, int column) {
 
         // When
         tableModel.setValueAt(value, row, column);
@@ -54,12 +61,11 @@ public class ProjectTableModelTest {
                 assert((int) tableModel.getValueAt(row, column) == (int) value);
                 break;
             default:
-                Assert.fail(); // It should fail if the column doesn't exist
+                assert( tableModel.getValueAt(row, column) == value);
         }
-
     }
 
-    private static Stream<Arguments> provideIntPair() {
+    private static Stream<Arguments> provideSetValue() {
         return Stream.of(
                 Arguments.of(false, 1, 1),       // CHECK
                 Arguments.of(true, 2, 1),
@@ -73,6 +79,25 @@ public class ProjectTableModelTest {
                 Arguments.of(false, 0, 0),          // Delete
 
                 Arguments.of(2, 0, 9)
+        );
+    }
+
+    // This one is important because it tests cases that the one above doesn't, for example when we are trying to get a
+    // value that wasn't set.
+    @ParameterizedTest
+    @MethodSource("provideGetValue")
+    public void testGetValueAtOutOfBounds(int row, int column) {
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> {
+            tableModel.getValueAt(row, column);
+        });
+    }
+
+    private static Stream<Arguments> provideGetValue() {
+        return Stream.of(
+                Arguments.of(-1, 1),
+                Arguments.of(11, 1),
+                Arguments.of(1, 11),
+                Arguments.of(1, -1)
         );
     }
 }
