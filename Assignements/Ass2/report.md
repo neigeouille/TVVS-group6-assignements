@@ -1,10 +1,10 @@
-# Assignement 2
+# Assignment 2
 
 
 
-## Select Functions 
+## Selected Functions 
 
-__*TODO : WHY THESE FUNCTIONS*__
+We selected these functions because they seemed both crucial to the app and testable.
 
 1. jtimesched.misc.PlainTextFormatter.format()
 2. jtimesched.project.ProjectTableMode.setValueAt()
@@ -17,27 +17,41 @@ ___
 
 ### __Purpose__
 
+This method takes a LogRecord as an argument and converts it to a String to enable all kinds of parsing.
+
 ### __Category-Partition__
 
+return a String for every LogRecord
 
 ### __Unit tests__
 
+Both scenarios were tested.
 
-### __Ourcome of the tests__
+### __Outcome of the tests__
 
-___
+Passed all tests
 
 ## 2 setValueAt()
 
 ### __Purpose__
 
+This method sets values on the Project Table of the app.
+
 ### __Category-Partition__
 
+Valid inputs must be set accordingly
+
+Invalid inputs must either not be set or throw an exception.
 
 ### __Unit tests__
 
+Every column was tested, including out of bounds.
 
-### __Ourcome of the tests__
+Every row was tested, including out of bounds.
+
+### __Outcome of the tests__
+
+Passed all tests except when the columns were out of bounds, it should throw an exception or at least log the mistake, but it doesn't. The rows threw IndexOutOfBoundsExceptions, but these weren't in the method description.
 
 ___
 
@@ -51,7 +65,7 @@ ___
 ### __Unit tests__
 
 
-### __Ourcome of the tests__
+### __Outcome of the tests__
 
 ___
 
@@ -97,9 +111,9 @@ We can find easily the edges of the parameters of a date :
 ### __Unit tests__
 
 We can see that the format that is returned is like "YYYY-MM-DD". So, we create a @Test in the ProjectTimeTest file that will verify if the output is formated like it should.
-We test the formatDate() method by creating a good and a wrong Date objects and then format them using the method. We create assertions with the expected output values. In the first case the assertion is a assertEquals() because we know the expected value. In the second case, we use a assertNotEquesl() with the supposely correct output that, in reality, can't be rerturns due to the wrong values that are out of the edges.
+We test the formatDate() method by creating a good and a wrong Date objects and then format them using the method. We create assertions with the expected output values. In the first case the assertion is a assertEquals() because we know the expected value. In the second case, we use a assertNotEquesl() with the supposely correct output that, in reality, can't be rerturned due to the wrong values that are out of the edges.
 
-### __Ourcome of the tests__
+### __Outcome of the tests__
 
 Obviously, the right Date output the right format.
 On the contrary, the Date that doesn't fit the edges will output a strange formatted date but with the right format. Ir doesn't match the expected value so the assertion is valid.
@@ -157,7 +171,7 @@ The first case is where this the entry parameter is well formated (inside edges)
 
 The second case is where the string is anything else than well formated. In this case, the function is suppoded to throw a specific exception so we test it with the assertThrows(). It allows us to verify if the exception is thrown and if it is the right one.
 
-### __Ourcome of the tests__
+### __Outcome of the tests__
 
 For the well formated time the assertion passes. 
 For the other case, the test passes if the the exception in thrown.
