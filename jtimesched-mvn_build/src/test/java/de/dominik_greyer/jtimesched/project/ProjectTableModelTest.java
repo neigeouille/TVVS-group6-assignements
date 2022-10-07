@@ -18,9 +18,7 @@ public class ProjectTableModelTest {
 
     @BeforeAll
     public static void initialize() {
-        System.out.println("hello");
         JTimeSchedApp.main(null); // Necessary to initialize the logger.
-        System.out.println("hello");
     }
     @ParameterizedTest
     @MethodSource("provideIntPair")
@@ -54,6 +52,7 @@ public class ProjectTableModelTest {
                 assert((int) tableModel.getValueAt(row, column) == (int) value);
                 break;
             default:
+                assert( tableModel.getValueAt(row, column) == value);
                 Assert.fail(); // It should fail if the column doesn't exist
         }
 
