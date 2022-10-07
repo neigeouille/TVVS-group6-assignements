@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class ProjectTime {
 	private static final String fmtDate = "yyyy-MM-dd";
 	
-	private ProjectTime() {}
+	public ProjectTime() {}
 	
 	public static String formatSeconds(int s) {
 		return String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60));
