@@ -30,7 +30,7 @@ public class ProjectTableModelTest {
         tableModel.setValueAt(value, row, column);
 
         // Then
-        Assert.assertThrows()
+        //Assert.assertThrows();
 
     }
 
