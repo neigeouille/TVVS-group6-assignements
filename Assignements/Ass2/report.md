@@ -1,6 +1,8 @@
 # Assignment 2
 
+In this project, we were tasked with selecting five functions and preforming unit testing in each of them.
 
+As this is black-box, we were not supposed to look at source code, but in the research phase, we found out that the available documentation was very lacking, making it impossible to select or derive the category partitions for a test from it. So we ended up having to look at the source code and trying to derive what was the original intention of the programmer.
 
 ## Selected Functions 
 
@@ -15,6 +17,9 @@ We selected these functions because they seemed both crucial to the app and test
 ___
 ## 1 format()
 
+- in: LogRecord
+- out: String
+
 ### __Purpose__
 
 This method takes a LogRecord as an argument and converts it to a String to enable all kinds of parsing.
@@ -25,13 +30,15 @@ return a String for every LogRecord
 
 ### __Unit tests__
 
-Both scenarios were tested.
+All possible scenarios were tested.
 
 ### __Outcome of the tests__
 
 Passed all tests
 
 ## 2 setValueAt()
+
+- in: Object, int, int
 
 ### __Purpose__
 
@@ -59,13 +66,24 @@ ___
 
 ### __Purpose__
 
+- in: int, int
+- out: Object
+
+Return the object at a given position in the table.
+
 ### __Category-Partition__
 
+The gotten values should match the type of the values entered (previous test function tested this)
+
+If it is out of bounds, an IndexOutOfBoundsException should be thrown
 
 ### __Unit tests__
 
+Every column and row was tested, including out of bounds.
 
 ### __Outcome of the tests__
+
+Rows out of bounds behave as expected, but columns don't throw an error or let the user know it failed in any way.
 
 ___
 
@@ -76,7 +94,7 @@ ___
 _jtimesched.project.ProjectTime.formatDate()_
 
 - in : Date object
-- put : a string containing the same date but under another format
+- out : a string containing the same date but under another format
 
 function = to convert a date into another date format
 
@@ -126,7 +144,7 @@ ___
 
 jtimesched.project.ProjectTime.parseSeconds()
 
-- int : string
+- in: string
 - out : an int which is the equivalent in seconds of the time passed in parameter 
 - exception : throw a ParseException
 
