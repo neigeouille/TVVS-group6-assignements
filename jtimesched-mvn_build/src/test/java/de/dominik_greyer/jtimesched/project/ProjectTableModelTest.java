@@ -136,5 +136,5 @@ public class ProjectTableModelTest {
                 Arguments.of(8,5)
 
                 );
-    }  
+    }
 }
