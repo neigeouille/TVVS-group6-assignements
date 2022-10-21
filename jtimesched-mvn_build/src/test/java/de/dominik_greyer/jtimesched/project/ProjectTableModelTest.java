@@ -127,47 +127,59 @@ public class ProjectTableModelTest {
     private static Stream<Arguments> provideIsCellEditable() {
         return Stream.of(
                 Arguments.of(3, 3),
-                Arguments.of(-1,0),
+                Arguments.of(-1, 0),
                 Arguments.of(0, 1),
-                Arguments.of(-1,5),
-                Arguments.of(0,6),
-                Arguments.of(9,1),
-                Arguments.of(10,0),
-                Arguments.of(9,6),
-                Arguments.of(10,7),
-                Arguments.of(1,2),
-                Arguments.of(1,5),
-                Arguments.of(8,2),
-                Arguments.of(8,5)
+                Arguments.of(-1, 5),
+                Arguments.of(0, 6),
+                Arguments.of(9, 1),
+                Arguments.of(10, 0),
+                Arguments.of(9, 6),
+                Arguments.of(10, 7),
+                Arguments.of(1, 2),
+                Arguments.of(1, 5),
+                Arguments.of(8, 2),
+                Arguments.of(8, 5)
 
-                );
-
+        );
+    }
 
     @ParameterizedTest
     @MethodSource("provideRemoveProject")
     public void testRemoveProject(int row){
 
         // Row in range
-        //tableModel.removeProject(row);
+        int arrBefore = tableModel.getRowCount();
+        tableModel.removeProject(row);
+        int arrAfter = tableModel.getRowCount();
+
+        Assert.assertEquals(1, arrBefore-arrAfter);
+    }
+    @ParameterizedTest
+    @MethodSource("provideRemoveProjectOUT")
+    public void testRemoveProjectOUT(int row){
+
         // Row out of range
         Assert.assertThrows(IndexOutOfBoundsException.class, () -> {
             tableModel.removeProject(row);
         });
-
-
     }
 
     private static Stream<Arguments> provideRemoveProject(){
         return Stream.of(
                 Arguments.of(0),
                 Arguments.of(9),
-                Arguments.of(-1),
                 Arguments.of(1),
-                Arguments.of(8),
+                Arguments.of(8)
+                //Arguments.of(5)
+        );
+    }
+
+    private static Stream<Arguments> provideRemoveProjectOUT(){
+        return Stream.of(
+                Arguments.of(-1),
                 Arguments.of(10)
                 //Arguments.of(-6),
-                //Arguments.of(16),
-                //Arguments.of(5)
+                //Arguments.of(16)
         );
     }
 }

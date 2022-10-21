@@ -105,6 +105,8 @@ out-points :
 ### CONCLUSION :
 We can implement 9 different tests with the values we have just found. That is a lot of tests so we can reduce the number at the ON and OFF points : 0, 9, -1, 1, 8 and 10
 
-- We implemented a test to check the behavior if the value of row is out of range. First, we use the object _ProjectTableModel_ created in the @Before. From this object we use the function _removeProject()_. We also use a __stream__ to send entries automatically (0, 9, -1, 1, 8 and 10). To verify that the points out of range are well handle by the exception that is supposed to be thrown, we use the _assertThrows()_ assertion with the exception _IndexOutOfBoundsException_.
+- We implement 2 tests. One is for the IN points and the second one is for the values OUT of range.
+    1. First, we use the object _ProjectTableModel_ created in the @Before. From this object we use the function _removeProject()_. We use a __stream__ to send the values 0, 9, 1 and 8 automatically. Then we procees to execute the function _removeProject()_. We don't forget to get the number of row __before__ and __after__ the removal. Finally, we use the assertion to verify if the number of rows decreased by 1.
+    2. We implemented a test to check the behavior if the value of row is out of range. We also use the object _ProjectTableModel_ . We also use a __stream__ to send entries automatically (-1 and 10). To verify that the points out of range are well handle by the exception that is supposed to be thrown, we use the _assertThrows()_ assertion with the exception _IndexOutOfBoundsException_.
 
-- The test is validate for -1 and 10 because the exception is thrown when the values are out of range.
+- For each test, all the values passed because w implemented specific tests.
