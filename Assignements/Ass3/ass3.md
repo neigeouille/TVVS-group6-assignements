@@ -1,5 +1,5 @@
 
-# 1 - adjusySecondsToday(int secondsToday)
+# 1 - adjustSecondsToday(int secondsToday)
 
 - We have selected the function _public void adjustSecondsToday(int secondsToday)_ because to begin with a simple function with one parameter.
 
@@ -39,6 +39,9 @@ We can implement 5 different tests with the values we have just found.
 - Conditions: rows between 0 and 9 and columns between 1 and 6
 
 ## Step 2:
+
+E1 : 0 <= row <= 9  && 1<= column <=6<br>
+E2 : row < 0 || row > 9 || column < 1 || column > 6
 
 ## Step 3:
 
