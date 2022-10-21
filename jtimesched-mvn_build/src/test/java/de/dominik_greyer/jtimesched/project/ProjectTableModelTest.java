@@ -22,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProjectTableModelTest {
 
+    private static final int NUMBER_OF_ROWS = 10;
+    private static final int NUMBER_OF_COLUMNS = 6;
+
     private static ArrayList<Project> arrProj;
     private static ProjectTableModel tableModel;
 
@@ -35,7 +38,7 @@ public class ProjectTableModelTest {
         // Given
         arrProj = new ArrayList<>();
 
-        for (int i = 0; i < 10 ; i++) {
+        for (int i = 0; i < NUMBER_OF_ROWS ; i++) {
             arrProj.add(new Project());
         }
 
@@ -106,6 +109,39 @@ public class ProjectTableModelTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("provideIsCellEditable")
+    public void testIsCellEditable(int row, int column) {
+
+        if (row < 0 ||
+            row > NUMBER_OF_ROWS ||
+            column < 1 ||
+            column > NUMBER_OF_COLUMNS) {
+
+            assert (!tableModel.isCellEditable(row, column));
+        } else {
+            assert (tableModel.isCellEditable(row, column));
+        }
+    }
+
+    private static Stream<Arguments> provideIsCellEditable() {
+        return Stream.of(
+                Arguments.of(3, 3),
+                Arguments.of(-1,0),
+                Arguments.of(0, 1),
+                Arguments.of(-1,5),
+                Arguments.of(0,6),
+                Arguments.of(9,1),
+                Arguments.of(10,0),
+                Arguments.of(9,6),
+                Arguments.of(10,7),
+                Arguments.of(1,2),
+                Arguments.of(1,5),
+                Arguments.of(8,2),
+                Arguments.of(8,5)
+
+                );
+
 
     @ParameterizedTest
     @MethodSource("provideRemoveProject")
@@ -133,6 +169,5 @@ public class ProjectTableModelTest {
                 //Arguments.of(16),
                 //Arguments.of(5)
         );
-
     }
 }
