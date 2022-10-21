@@ -1,6 +1,7 @@
 package de.dominik_greyer.jtimesched.project;
 
 import de.dominik_geyer.jtimesched.project.Project;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -22,7 +23,7 @@ public class ProjectTest {
         proj.adjustSecondsToday(secondsToday);
         int sec = proj.getSecondsToday(); // begin at 0
 
-        assertEquals(0,sec);
+        Assert.assertEquals(0,sec);
         //assertEquals(1,sec);
         //assertEquals(6,sec);
 
