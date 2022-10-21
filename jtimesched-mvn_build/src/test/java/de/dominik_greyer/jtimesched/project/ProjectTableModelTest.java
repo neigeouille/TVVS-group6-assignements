@@ -6,14 +6,19 @@ import de.dominik_geyer.jtimesched.project.ProjectTableModel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.awt.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Stream;
+
+import static de.dominik_geyer.jtimesched.project.ProjectTime.parseSeconds;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProjectTableModelTest {
 
@@ -99,5 +104,35 @@ public class ProjectTableModelTest {
                 Arguments.of(1, 11),
                 Arguments.of(1, -1)
         );
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("provideRemoveProject")
+    public void testRemoveProject(int row){
+
+        // Row in range
+        //tableModel.removeProject(row);
+        // Row out of range
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> {
+            tableModel.removeProject(row);
+        });
+
+
+    }
+
+    private static Stream<Arguments> provideRemoveProject(){
+        return Stream.of(
+                Arguments.of(0),
+                Arguments.of(9),
+                Arguments.of(-1),
+                Arguments.of(1),
+                Arguments.of(8),
+                Arguments.of(10)
+                //Arguments.of(-6),
+                //Arguments.of(16),
+                //Arguments.of(5)
+        );
+
     }
 }
