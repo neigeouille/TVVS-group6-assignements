@@ -129,7 +129,12 @@ public class ProjectTableModelTest {
                 Arguments.of(9,1),
                 Arguments.of(10,0),
                 Arguments.of(9,6),
-                Arguments.of(10,7)
-        );
-    }
+                Arguments.of(10,7),
+                Arguments.of(1,2),
+                Arguments.of(1,5),
+                Arguments.of(8,2),
+                Arguments.of(8,5)
+
+                );
+    }  
 }
