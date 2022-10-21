@@ -7,18 +7,18 @@
 
 
 ### STEP 1 :
-entry parameter : int
-condition : <0
-=> not min or maximum value but there is a change around 0.
+entry parameter : int<br>
+condition : <0 <br>
+=> not min or maximum value but there is a change around 0
 
 ### STEP 2 :
-E1 : <0
+E1 : <0 <br>
 E2 : >=0
 
 ### STEP 3 :
-on-point : 0
-off-point : -1 and 1
-in-points : ]-∞;0[ where we can take -6
+on-point : 0 <br>
+off-point : -1 and 1 <br>
+in-points : ]-∞;0[ where we can take -6 <br>
 out-points : [0;+∞[ where we can take 6
 
 ### CONCLUSION :
@@ -41,19 +41,19 @@ We can implement 5 different tests with the values we have just found.
 
 
 ### STEP 1 :
-entry parameter : int
-condition : >=0 and <=10
+entry parameter : int <br>
+condition : >=0 and <=9 <br>
 => for the tests we create a table that can contain only 10 rows, so until row=9.
 
 ### STEP 2 :
-E1 : <0
-E2 : >9
-E3 : 0<= x <=9
+E1 : <0 <br>
+E2 : >9 <br>
+E3 : 0<= x <=9<br>
 
 ### STEP 3 :
-on-point : 0 and 9
-off-point : -1, 1, 8 and 10
-in-points : [0;9] where we can take 5
+on-point : 0 and 9 <br>
+off-point : -1, 1, 8 and 10 <br>
+in-points : [0;9] where we can take 5 <br>
 out-points :  
 - ]-∞;-1] where we can take -6
 - [10;+∞[ where we can take 16
