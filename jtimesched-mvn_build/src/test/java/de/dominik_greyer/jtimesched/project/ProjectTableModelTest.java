@@ -6,6 +6,7 @@ import de.dominik_geyer.jtimesched.project.ProjectTableModel;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -43,6 +44,13 @@ public class ProjectTableModelTest {
         }
 
         tableModel = new ProjectTableModel(arrProj);
+    }
+
+    @Test
+    public void addProjectTest() {
+        tableModel.addProject(new Project());
+
+        Assert.assertEquals(tableModel.getRowCount(), NUMBER_OF_ROWS + 1);
     }
 
     @ParameterizedTest
@@ -122,6 +130,8 @@ public class ProjectTableModelTest {
         } else {
             assert (tableModel.isCellEditable(row, column));
         }
+
+        
     }
 
     private static Stream<Arguments> provideIsCellEditable() {
@@ -138,8 +148,8 @@ public class ProjectTableModelTest {
                 Arguments.of(1, 2),
                 Arguments.of(1, 5),
                 Arguments.of(8, 2),
-                Arguments.of(8, 5)
-
+                Arguments.of(8, 5),
+                Arguments.of(100, 100)
         );
     }
 
