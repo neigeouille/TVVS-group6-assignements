@@ -31,8 +31,6 @@ public class ProjectTimeTest {
         Date date_test2 = cal2.getTime();
 
         //When
-        //String sdf_test1 = formatDate(date_test1);
-        //String sdf_test2 = formatDate(date_test2);
 
         //Then
         assertEquals("2000-12-19", formatDate(date_test1));
