@@ -46,6 +46,19 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest</artifactId>
+            <version>1.9.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -53,6 +66,27 @@
         <testSourceDirectory>src/test/java</testSourceDirectory>
         
         <plugins>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.9.11</version>
+                <dependencies>
+                    <!-- The following dependency must be included to support JUnit 5 -->
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.1.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludedTestClasses>
+                        <!-- The following test classes must be excluded as they fail on Pit -->
+                        <param>de.dominik_greyer.jtimesched.project.ProjectTableModelTest</param>
+                    </excludedTestClasses>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

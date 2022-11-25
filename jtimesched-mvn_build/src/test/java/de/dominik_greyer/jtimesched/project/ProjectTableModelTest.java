@@ -29,7 +29,7 @@ public class ProjectTableModelTest {
     private static ArrayList<Project> arrProj;
     private static ProjectTableModel tableModel;
 
-    @BeforeAll
+    @BeforeAll //todo : fix me because doesn't handle mutation testing
     public static void beforeAll() {
         JTimeSchedApp.main(null); // Necessary to initialize the logger.
     }
