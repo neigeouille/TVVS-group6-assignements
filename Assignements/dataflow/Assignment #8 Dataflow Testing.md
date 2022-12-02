@@ -12,7 +12,7 @@ We have chosen these functions because they have different variable types and fl
 
 ### ```Project.adjustSecondsToday(int secondsToday)```
 
-![Adjust Seconds Today Graph](C:\Users\hugui\OneDrive\Área de Trabalho\adjustSecond.svg)
+![Adjust Seconds Today Graph](adjustSecond.svg)
 
 var secondsToday
 
@@ -45,6 +45,8 @@ var this.secondsOversall
 
 
 ### ```ProjectTime.parseSeconds(String strTime)```
+
+![Parse Seconds Graph](parseSeconds.svg)
 
 var strTime
 
@@ -96,7 +98,7 @@ var out
 
 ### ```ProjetcTableModel.isCellEditable(int row, int column)```
 
-![Is Cell Editable Graph](C:\Users\hugui\OneDrive\Área de Trabalho\dataflow2.svg)
+![Is Cell Editable Graph](dataflow2.svg)
 
 var column
 
@@ -113,9 +115,10 @@ var row
 
 var p
 
-| id   | def  | use  | path    |
-| ---- | ---- | ---- | ------- |
-| 1    | 2    | 6    | 2,3,5,6 |
+| id   | def  | use  | path       |
+| ---- | ---- | ---- | ---------- |
+| 1    | 2    | (6T) | 2,3,5,6,9  |
+| 2    | 2    | (6F) | 2,3,5,6,10 |
 
 ## Generated  Test  Cases
 
@@ -127,9 +130,11 @@ This was the unit test created for ```adjustSecondsToday(int secondsToday)```, i
 
 This was the unit test created for ```parseSeconds(String srtTime)```, it tests all the variables and the tests passed successfully in the first try too.
 
-```testIsCellEditable(int seconds)```
+```testIsCellEditable(int seconds)``` and ```testIsCellEditableWithStoppedProject()```
 
-This was the unit test created for ```isCellEditable(int row, int column)```, it tests all the variables, some of the tests do not pass, since the method does not declare that it throws any Exception and yet isn't resistent to Indexes out of bounds.
+These were the unit tests created for ```isCellEditable(int row, int column)```, it tests all the variables, some of the tests do not pass, since the method does not declare that it throws any Exception and yet, it isn't resistant to Indexes out of bounds.
+
+The  ```testIsCellEditableWithStoppedProject()``` test was created specifically to test paths 9 and 10, as the previous version just tested one of the branches. This test passes successfully.
 
 
 
