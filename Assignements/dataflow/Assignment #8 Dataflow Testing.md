@@ -12,7 +12,7 @@ We have chosen these functions because they have different variable types and fl
 
 ### ```Project.adjustSecondsToday(int secondsToday)```
 
-![Adjust Seconds Today Graph](C:\Users\hugui\OneDrive\Área de Trabalho\adjustSecond.svg)
+![Adjust Seconds Today Graph](adjustSecond.svg)
 
 var secondsToday
 
@@ -96,7 +96,7 @@ var out
 
 ### ```ProjetcTableModel.isCellEditable(int row, int column)```
 
-![Is Cell Editable Graph](C:\Users\hugui\OneDrive\Área de Trabalho\dataflow2.svg)
+![Is Cell Editable Graph](dataflow2.svg)
 
 var column
 
