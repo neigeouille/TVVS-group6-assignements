@@ -119,7 +119,7 @@ public class ProjectTableModelTest {
 
     @ParameterizedTest
     @MethodSource("provideIsCellEditable")
-    public void testIsCellEditable(int row, int column) { /// TODO = DATAFLOW
+    public void testIsCellEditable(int row, int column) {
 
         if (row < 0 ||
             row > NUMBER_OF_ROWS ||
@@ -130,8 +130,15 @@ public class ProjectTableModelTest {
         } else {
             assert (tableModel.isCellEditable(row, column));
         }
+    }
+    @Test
+    public void testIsCellEditableWithStoppedProject() {
 
-        
+        Project prj = arrProj.get(0);
+        prj.setRunning(false);
+        arrProj.set(0, prj);
+
+            assert (tableModel.isCellEditable(0, 6));
     }
 
     private static Stream<Arguments> provideIsCellEditable() {
