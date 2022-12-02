@@ -149,7 +149,8 @@ public class ProjectTableModelTest {
                 Arguments.of(1, 5),
                 Arguments.of(8, 2),
                 Arguments.of(8, 5),
-                Arguments.of(100, 100)
+                Arguments.of(100, 100),
+                Arguments.of(1,100)
         );
     }
 
