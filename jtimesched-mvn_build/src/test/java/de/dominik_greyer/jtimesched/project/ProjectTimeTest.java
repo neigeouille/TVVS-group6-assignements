@@ -1,4 +1,5 @@
 package de.dominik_greyer.jtimesched.project;
+import de.dominik_geyer.jtimesched.project.ProjectTime;
 import org.junit.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -6,13 +7,34 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import static de.dominik_geyer.jtimesched.project.ProjectTime.formatDate;
-import static de.dominik_geyer.jtimesched.project.ProjectTime.parseSeconds;
+
+import static de.dominik_geyer.jtimesched.project.ProjectTime.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProjectTimeTest {
+
+    @Test
+    public void testFormatSecond(){
+        assertEquals("0:05:56",formatSeconds(356) );
+    }
+
+    @Test
+    public void testParseDate(){
+        try{
+            Date d = parseDate("07-12-2000");
+            assertEquals("Mon May 22 00:00:00 CET 13", d.toString());
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testProjectTime(){
+        ProjectTime prj = new ProjectTime();
+        assertEquals("class de.dominik_geyer.jtimesched.project.ProjectTime",prj.getClass().toString() );
+    }
 
     @Test
     public void testFormatDate() {

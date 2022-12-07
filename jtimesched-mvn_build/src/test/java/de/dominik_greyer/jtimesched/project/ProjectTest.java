@@ -1,6 +1,7 @@
 package de.dominik_greyer.jtimesched.project;
 
 import de.dominik_geyer.jtimesched.project.Project;
+import de.dominik_geyer.jtimesched.project.ProjectException;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,16 +13,83 @@ import java.awt.*;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ProjectTest {
 
     public Project proj;
+    public Date date_start;
 
     @BeforeEach
     public void beforeEach() {
+
         this.proj = new Project("test_project");
+        this.date_start = new Date();
     }
+
+    @Test
+    public void testProjectCreation(){
+        assertEquals("test_project", this.proj.getTitle());
+        assertEquals("", this.proj.getNotes());
+        assertNull(this.proj.getColor());
+        assertNotNull(this.proj.getTimeCreated());
+        assertNotNull(this.proj.getTimeStart());
+        assertEquals(this.date_start, this.proj.getTimeCreated());
+        assertEquals(this.date_start, this.proj.getTimeStart());
+    }
+
+    @Test
+    public void testProjectDefaultCreation(){
+        Project proj2 = new Project();
+        Date d = new Date();
+
+        assertEquals("project", proj2.getTitle());
+        assertEquals("", proj2.getNotes());
+        assertNull(proj2.getColor());
+        assertNotNull(proj2.getTimeCreated());
+        assertNotNull(proj2.getTimeStart());
+        assertEquals(d, proj2.getTimeCreated());
+        assertEquals(d, proj2.getTimeStart());
+    }
+
+    @Test
+    public void testGetColor(){
+        this.proj.setColor(null);
+        assertNull(this.proj.getColor());
+
+        Color new_col = new Color(240,250,187);
+        this.proj.setColor(new_col);
+        assertEquals(new_col.getRGB(), this.proj.getColor().getRGB());
+        assertEquals(new_col.getClass(), this.proj.getColor().getClass());
+    }
+    @Test
+    public void testSetTitle() {
+        String str = "change_title";
+        this.proj.setTitle(str);
+
+        assertEquals(str, this.proj.getTitle());
+        assertEquals(str.getClass(), this.proj.getTitle().getClass());
+    }
+
+    @Test
+    public void testSetTimeCreated(){
+        Date changed_date = new Date(1212121212121L); // Fri May 30 06:20:12 CEST 2008
+        this.proj.setTimeCreated(changed_date);
+        assertEquals(changed_date, this.proj.getTimeCreated());
+        assertEquals(changed_date.getClass(), this.proj.getTimeCreated().getClass());
+    }
+
+   /* @Test
+    public void testGetElapsedSeconds(){
+        //Date d_start = new Date();
+        try{
+            System.out.println(this.proj.getElapsedSeconds());
+        }catch (ProjectException e){
+            System.out.println(e.getMessage());
+        }
+
+    }*/
+
 
     @ParameterizedTest
     @MethodSource("provideDates")
