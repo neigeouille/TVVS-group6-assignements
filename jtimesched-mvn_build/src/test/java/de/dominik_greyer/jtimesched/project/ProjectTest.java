@@ -5,15 +5,22 @@ import de.dominik_geyer.jtimesched.project.ProjectException;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import static org.mockito.Mockito.mock;
 
 import java.awt.*;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
 
+import static de.dominik_geyer.jtimesched.project.ProjectTime.parseSeconds;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 
 public class ProjectTest {
 
@@ -78,17 +85,6 @@ public class ProjectTest {
         assertEquals(changed_date, this.proj.getTimeCreated());
         assertEquals(changed_date.getClass(), this.proj.getTimeCreated().getClass());
     }
-
-   /* @Test
-    public void testGetElapsedSeconds(){
-        //Date d_start = new Date();
-        try{
-            System.out.println(this.proj.getElapsedSeconds());
-        }catch (ProjectException e){
-            System.out.println(e.getMessage());
-        }
-
-    }*/
 
 
     @ParameterizedTest
@@ -226,6 +222,91 @@ public class ProjectTest {
         Assert.assertEquals(0, sec);
         Assert.assertEquals(0, quota);
     }
+
+    @Test
+    public void testStart(){
+        assertThrows(ProjectException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                proj.setRunning(true);
+                proj.start();
+            }
+        });
+    }
+
+    @Test
+    public void testToogleRunning(){
+        proj.setRunning(true);
+        proj.toggle();
+        assertEquals(false, proj.isRunning());
+    }
+
+    @Test
+    public void testToogleNotRunning(){
+        proj.setRunning(false);
+        proj.toggle();
+        assertEquals(true, proj.isRunning());
+    }
+
+    @Test
+    public void testGetSecondsToday(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2022);
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date d = cal.getTime();
+        proj.setTimeStart(d);
+
+        proj.setRunning(true);
+        int result = proj.getSecondsToday();
+
+        proj.setRunning(false);
+        int result2 = proj.getSecondsToday();
+
+        assertTrue(result == (int)result);
+        assertTrue(result2 == (int)result2);
+        assertNotEquals(result, result2);
+        assertTrue(result>=result2);
+    }
+
+    @Test
+    public void testGetSecondsOverall(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2022);
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date d = cal.getTime();
+        proj.setTimeStart(d);
+
+        proj.setRunning(true);
+        int result = proj.getSecondsOverall();
+
+        proj.setRunning(false);
+        int result2 = proj.getSecondsOverall();
+
+        assertTrue(result == (int)result);
+        assertTrue(result2 == (int)result2);
+        assertNotEquals(result, result2);
+        assertTrue(result>=result2);
+    }
+
+    // Doesn't change anything
+    /*@Test
+    public void testSetSecondsOverall(){
+        proj.setRunning(false);
+        proj.setSecondsOverall(89);
+        int result = proj.getSecondsOverall();
+        assertTrue(result == (int)result);
+        assertNotEquals(0, result);
+    }*/
+    /*@Test
+    public void testSetSecondsOverallNegative(){
+        proj.setRunning(false);
+        proj.setSecondsOverall(-1);
+        int result = proj.getSecondsOverall();
+        assertTrue(result == (int)result);
+        assertEquals(0,result);
+    }*/
 
     @ParameterizedTest
     @MethodSource("provideAdjustValue")
