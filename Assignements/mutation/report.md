@@ -1,9 +1,5 @@
 
 
-- Mutation score of the unit tests you developed in all assignments.
-- Equivalent mutants, if any.
-- Brief description of test cases developed to increase project’s mutation score.
-
 # Mutation Testing
 __We didn't implemented the mutation tests method on the class _ProjectTableModel.java_ because some of the functionnalities were not supported by Pitest.__
 
@@ -19,14 +15,14 @@ And we reached a good level of mutation score in the class _Project.java_. The l
 
 ![img](img/projectclass.PNG)
 
-The functions were we could'nt KILL the mutation are _setSecondsOverall()_, _setSecondsToday()_, _adjustSecondsToday()_. The main problem was their `if` condition. Our tests KILLED the `negated conditional` but SURVIVED the `boundary change`. We didn't find a way to reinforced our tests in order to kill that mutation.
+The functions where we couldn't KILL the mutation are _setSecondsOverall()_, _setSecondsToday()_, _adjustSecondsToday()_. The main problem was their `if` condition. Our tests KILLED the `negated conditional` but SURVIVED the `boundary change`. We didn't find a way to reinforced our tests in order to kill that mutation.
 
 ![img](img/notkilledfunctions.PNG)
 
 # Equivalent Mutants
 
-So after having this problem with the `if` conditions we came to the conclusion that these mutations were __equivalent mutants__. 
-Even with the lowest diference between the value sented (/ compared to the boundary) and the boundary we can't assure that the mutatuon will be KILLED.
+After having this problem with the `if` conditions we came to the conclusion that these mutations were __equivalent mutants__. 
+Even with the lowest difference between the values entered (/ compared to the boundary) and the boundary we can't KILL the mutation.
 
 # Test Cases
 
@@ -50,12 +46,13 @@ And we also have to assert that `this.secondsToday` is either equal to the entry
 
 ## Project.getElapsedSeconds()
 
-The test on the function `getElapsedSeconds()` was challenging because of its __protected__ characterictic. It was unreachable.
-We coudln't test directly  the function so we had to pass by other functions that use it, for exemple : pause(), getSecondsToday() and getSecondsOverall()
+The test on the function `getElapsedSeconds()` was challenging because of its __protected__ characteristic. It was unreachable.
+We coudln't test directly  the function so we had to pass by other functions that use it, for example : pause(), getSecondsToday() and getSecondsOverall()
 
-So this is during the implementation of these functions tests that the mutation of getElapsedSeconds were gradually KILLED.
+So it is during the implementation of these functions' tests that the mutation of getElapsedSeconds were gradually KILLED.
 
 ## Project.pause()
-// Todo : Hugoooooooooooooooooooooooooooooooooooooooooo
+This test function benefitted greatly from mutation testing, as it helped identify some problems it had. The function is fairly complex and a lot of parameters had to be tested. A _Thread.sleep()_ was used to simulate the passage of time. We also had to simulate the project running and stopping.
 
+In the end all of the mutations were successfully killed.
 
