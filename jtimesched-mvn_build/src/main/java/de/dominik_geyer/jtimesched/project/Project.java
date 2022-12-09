@@ -110,7 +110,7 @@ public class Project {
 
 	protected int getElapsedSeconds() throws ProjectException {
 		if (!this.isRunning())
-			throw new ProjectException("Timer not running"); // Unreachable
+			throw new ProjectException("Timer not running");
 		
 		Date currentTime = new Date();
 		return (int) ((currentTime.getTime() - this.timeStart.getTime()) / 1000);
@@ -127,9 +127,7 @@ public class Project {
 	}
 	
 	public void pause() throws ProjectException {
-		if (!this.isRunning())
-			throw new ProjectException("Timer not running");
-		
+
 		int secondsElapsed = this.getElapsedSeconds();
 		this.secondsOverall += secondsElapsed;
 		this.secondsToday += secondsElapsed;
@@ -151,27 +149,24 @@ public class Project {
 	
 	public int getSecondsToday() {
 		int seconds = this.secondsToday;
-		
-		if (this.isRunning())
-			try {
-				seconds += this.getElapsedSeconds();
-			} catch (ProjectException e) {
-				e.printStackTrace();
-			}
-		
+
+		try {
+			seconds += this.getElapsedSeconds();
+		} catch (ProjectException e) {
+			e.printStackTrace();
+		}
+
 		return seconds;
 	}
 	
 	public int getSecondsOverall() {
 		int seconds = this.secondsOverall;
-		
-		if (this.isRunning())
-			try {
-				seconds += this.getElapsedSeconds();
-			} catch (ProjectException e) {
-				e.printStackTrace();
-			}
-		
+
+		try {
+			seconds += this.getElapsedSeconds();
+		} catch (ProjectException e) {
+			e.printStackTrace();
+		}
 		return seconds;
 	}
 	

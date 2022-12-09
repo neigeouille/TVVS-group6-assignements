@@ -7,6 +7,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.commons.util.PreconditionViolationException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.stream.Stream;
@@ -22,8 +24,15 @@ public class PlainTextFormatterTest {
         // When
         String szTest = testFormatter.format(record);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd (E) HH:mm:ss");
+
         //Then
         assert(szTest != null);
+        String test = String.format("%s [%s]: %s%n",
+                sdf.format(new Date(record.getMillis())),
+                record.getLevel(),
+                record.getMessage());
+        assert(szTest.equals(test));
     }
 
     private static Stream<Arguments> provideLogRecords() {
