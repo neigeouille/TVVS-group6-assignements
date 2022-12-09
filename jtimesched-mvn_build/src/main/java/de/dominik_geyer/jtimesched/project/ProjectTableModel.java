@@ -62,7 +62,7 @@ public class ProjectTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public Object getValueAt(int row, int column) {
+	public Object getValueAt(int row, int column) throws IndexOutOfBoundsException{
 		Object o;
 		
 		Project prj = arPrj.get(row);
@@ -91,7 +91,8 @@ public class ProjectTableModel extends AbstractTableModel {
 			o = (prj.isRunning()) ? new Boolean(true) : new Boolean(false);
 			break;
 		default:
-			o = "wtf?";
+			IndexOutOfBoundsException IndexOutOfBoundsException = new IndexOutOfBoundsException();
+			throw(IndexOutOfBoundsException);
 		}
 
 		
@@ -130,7 +131,12 @@ public class ProjectTableModel extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int row, int column) {
-		Project prj = this.getProjectAt(row);
+		Project prj;
+		if (row >= 0 && row < this.getRowCount()) {
+			prj = this.getProjectAt(row);
+		} else {
+			return false;
+		}
 		
 		switch (column) {
 		case ProjectTableModel.COLUMN_CHECK:
