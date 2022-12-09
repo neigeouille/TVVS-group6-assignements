@@ -110,7 +110,7 @@ public class Project {
 
 	protected int getElapsedSeconds() throws ProjectException {
 		if (!this.isRunning())
-			throw new ProjectException("Timer not running");
+			throw new ProjectException("Timer not running"); // Unreachable
 		
 		Date currentTime = new Date();
 		return (int) ((currentTime.getTime() - this.timeStart.getTime()) / 1000);

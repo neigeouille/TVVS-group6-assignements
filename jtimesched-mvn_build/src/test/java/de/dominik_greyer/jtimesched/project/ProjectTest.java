@@ -46,6 +46,39 @@ public class ProjectTest {
     }
 
     @Test
+    public void testPause(){
+
+        int nPreviousSecondsOverall = this.proj.getSecondsOverall();
+        int nPreviousSecondsToday = this.proj.getSecondsToday();
+
+        try {
+            this.proj.start();
+        } catch (ProjectException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            this.proj.pause();
+        } catch (ProjectException e){
+            // Shouldn't reach this
+        }
+
+        assert(!proj.isRunning());
+
+        assert(proj.getSecondsOverall() == nPreviousSecondsOverall + 1);
+        assert(proj.getSecondsToday() == nPreviousSecondsToday + 1);
+
+        assertThrows(ProjectException.class, () -> {this.proj.pause();});
+
+    }
+
+    @Test
     public void testProjectDefaultCreation(){
         Project proj2 = new Project();
         Date d = new Date();
@@ -85,7 +118,6 @@ public class ProjectTest {
         assertEquals(changed_date, this.proj.getTimeCreated());
         assertEquals(changed_date.getClass(), this.proj.getTimeCreated().getClass());
     }
-
 
     @ParameterizedTest
     @MethodSource("provideDates")
