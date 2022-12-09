@@ -2,25 +2,19 @@ package de.dominik_greyer.jtimesched.project;
 
 import de.dominik_geyer.jtimesched.project.Project;
 import de.dominik_geyer.jtimesched.project.ProjectException;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import static org.mockito.Mockito.mock;
 
 import java.awt.*;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import static de.dominik_geyer.jtimesched.project.ProjectTime.parseSeconds;
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
 
 public class ProjectTest {
 
@@ -36,13 +30,13 @@ public class ProjectTest {
 
     @Test
     public void testProjectCreation(){
-        assertEquals("test_project", this.proj.getTitle());
-        assertEquals("", this.proj.getNotes());
-        assertNull(this.proj.getColor());
-        assertNotNull(this.proj.getTimeCreated());
-        assertNotNull(this.proj.getTimeStart());
-        assertEquals(this.date_start, this.proj.getTimeCreated());
-        assertEquals(this.date_start, this.proj.getTimeStart());
+        Assertions.assertEquals("test_project", this.proj.getTitle());
+        Assertions.assertEquals("", this.proj.getNotes());
+        Assertions.assertNull(this.proj.getColor());
+        Assertions.assertNotNull(this.proj.getTimeCreated());
+        Assertions.assertNotNull(this.proj.getTimeStart());
+        Assertions.assertEquals(this.date_start, this.proj.getTimeCreated());
+        Assertions.assertEquals(this.date_start, this.proj.getTimeStart());
     }
 
     @Test
@@ -74,7 +68,7 @@ public class ProjectTest {
         assert(proj.getSecondsOverall() == nPreviousSecondsOverall + 1);
         assert(proj.getSecondsToday() == nPreviousSecondsToday + 1);
 
-        assertThrows(ProjectException.class, () -> {this.proj.pause();});
+        assertThrows(ProjectException.class, () -> this.proj.pause());
 
     }
 
@@ -83,40 +77,40 @@ public class ProjectTest {
         Project proj2 = new Project();
         Date d = new Date();
 
-        assertEquals("project", proj2.getTitle());
-        assertEquals("", proj2.getNotes());
-        assertNull(proj2.getColor());
-        assertNotNull(proj2.getTimeCreated());
-        assertNotNull(proj2.getTimeStart());
-        assertEquals(d, proj2.getTimeCreated());
-        assertEquals(d, proj2.getTimeStart());
+        Assertions.assertEquals("project", proj2.getTitle());
+        Assertions.assertEquals("", proj2.getNotes());
+        Assertions.assertNull(proj2.getColor());
+        Assertions.assertNotNull(proj2.getTimeCreated());
+        Assertions.assertNotNull(proj2.getTimeStart());
+        Assertions.assertEquals(d, proj2.getTimeCreated());
+        Assertions.assertEquals(d, proj2.getTimeStart());
     }
 
     @Test
     public void testGetColor(){
         this.proj.setColor(null);
-        assertNull(this.proj.getColor());
+        Assertions.assertNull(this.proj.getColor());
 
         Color new_col = new Color(240,250,187);
         this.proj.setColor(new_col);
-        assertEquals(new_col.getRGB(), this.proj.getColor().getRGB());
-        assertEquals(new_col.getClass(), this.proj.getColor().getClass());
+        Assertions.assertEquals(new_col.getRGB(), this.proj.getColor().getRGB());
+        Assertions.assertEquals(new_col.getClass(), this.proj.getColor().getClass());
     }
     @Test
     public void testSetTitle() {
         String str = "change_title";
         this.proj.setTitle(str);
 
-        assertEquals(str, this.proj.getTitle());
-        assertEquals(str.getClass(), this.proj.getTitle().getClass());
+        Assertions.assertEquals(str, this.proj.getTitle());
+        Assertions.assertEquals(str.getClass(), this.proj.getTitle().getClass());
     }
 
     @Test
     public void testSetTimeCreated(){
         Date changed_date = new Date(1212121212121L); // Fri May 30 06:20:12 CEST 2008
         this.proj.setTimeCreated(changed_date);
-        assertEquals(changed_date, this.proj.getTimeCreated());
-        assertEquals(changed_date.getClass(), this.proj.getTimeCreated().getClass());
+        Assertions.assertEquals(changed_date, this.proj.getTimeCreated());
+        Assertions.assertEquals(changed_date.getClass(), this.proj.getTimeCreated().getClass());
     }
 
     @ParameterizedTest
@@ -124,7 +118,7 @@ public class ProjectTest {
     public void setTimeStartTest(Date date) {
         this.proj.setTimeStart(date);
 
-        Assert.assertEquals(date, this.proj.getTimeStart());
+        Assertions.assertEquals(date, this.proj.getTimeStart());
     }
 
     private static Stream<Arguments> provideDates() {
@@ -139,7 +133,7 @@ public class ProjectTest {
     public void setQuotaTodayTest(int quotaToday) {
         this.proj.setQuotaToday(quotaToday);
 
-        Assert.assertEquals(quotaToday,this.proj.getQuotaToday());
+        Assertions.assertEquals(quotaToday, this.proj.getQuotaToday());
 
     }
 
@@ -148,7 +142,7 @@ public class ProjectTest {
     public void setQuotaOverallTest(int quotaOverall) {
         this.proj.setQuotaOverall(quotaOverall);
 
-        Assert.assertEquals(quotaOverall,this.proj.getQuotaOverall());
+        Assertions.assertEquals(quotaOverall, this.proj.getQuotaOverall());
 
     }
 
@@ -157,7 +151,7 @@ public class ProjectTest {
     public void setNotesTest(String notes) {
         this.proj.setNotes(notes);
 
-        Assert.assertTrue(notes.equals(this.proj.getNotes()));
+        Assertions.assertEquals(notes, this.proj.getNotes());
     }
 
     private static Stream<Arguments> provideNotes() {
@@ -177,7 +171,7 @@ public class ProjectTest {
                 this.proj.getSecondsOverall(), this.proj.getSecondsToday(),
                 (this.proj.isChecked()) ? "yes" : "no");
 
-        Assert.assertTrue(this.proj.toString().equalsIgnoreCase(test));
+        Assertions.assertTrue(this.proj.toString().equalsIgnoreCase(test));
 
         this.proj.setRunning(true);
 
@@ -187,7 +181,7 @@ public class ProjectTest {
                 this.proj.getSecondsOverall(), this.proj.getSecondsToday(),
                 (this.proj.isChecked()) ? "yes" : "no");
 
-        Assert.assertTrue(this.proj.toString().equalsIgnoreCase(test));
+        Assertions.assertTrue(this.proj.toString().equalsIgnoreCase(test));
 
         this.proj.setChecked(true);
 
@@ -197,18 +191,18 @@ public class ProjectTest {
                 this.proj.getSecondsOverall(), this.proj.getSecondsToday(),
                 (this.proj.isChecked()) ? "yes" : "no");
 
-        Assert.assertTrue(this.proj.toString().equalsIgnoreCase(test));
+        Assertions.assertTrue(this.proj.toString().equalsIgnoreCase(test));
     }
 
     @Test
     public void setRunningTest() {
         this.proj.setRunning(true);
 
-        Assert.assertEquals(this.proj.isRunning(),true);
+        Assertions.assertTrue(this.proj.isRunning());
 
         this.proj.setRunning(false);
 
-        Assert.assertEquals(this.proj.isRunning(),false);
+        Assertions.assertFalse(this.proj.isRunning());
     }
 
     @Test
@@ -227,12 +221,12 @@ public class ProjectTest {
             sec = 0;
         }
 
-        Assert.assertEquals(sec,this.proj.getSecondsOverall());
+        Assertions.assertEquals(sec, this.proj.getSecondsOverall());
     }
 
     @ParameterizedTest
     @MethodSource("provideAdjustValue")
-    public void adjustSecondsTodayTest (int secondsToday){  /// TODO = DATAFLOW
+    public void adjustSecondsTodayTest (int secondsToday){
 
         this.proj.adjustSecondsToday(secondsToday);
         int sec = this.proj.getSecondsToday(); // begin at 0
@@ -241,7 +235,11 @@ public class ProjectTest {
             secondsToday = 0;
         }
 
-        Assert.assertEquals(secondsToday,sec);
+        int secondsDelta = sec - secondsToday;
+
+        assert (this.proj.getSecondsOverall() == this.proj.getSecondsOverall() + secondsDelta);
+
+        assert (sec == secondsToday);
     }
 
     @Test
@@ -251,33 +249,30 @@ public class ProjectTest {
         int sec = this.proj.getSecondsToday();
         int quota = this.proj.getQuotaToday();
 
-        Assert.assertEquals(0, sec);
-        Assert.assertEquals(0, quota);
+        Assertions.assertEquals(0, sec);
+        Assertions.assertEquals(0, quota);
     }
 
     @Test
     public void testStart(){
-        assertThrows(ProjectException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                proj.setRunning(true);
-                proj.start();
-            }
+        assertThrows(ProjectException.class, () -> {
+            proj.setRunning(true);
+            proj.start();
         });
     }
 
     @Test
-    public void testToogleRunning(){
+    public void testToggleRunning(){
         proj.setRunning(true);
         proj.toggle();
-        assertEquals(false, proj.isRunning());
+        Assertions.assertFalse(proj.isRunning());
     }
 
     @Test
-    public void testToogleNotRunning(){
+    public void testToggleNotRunning(){
         proj.setRunning(false);
         proj.toggle();
-        assertEquals(true, proj.isRunning());
+        Assertions.assertTrue(proj.isRunning());
     }
 
     @Test
@@ -295,10 +290,10 @@ public class ProjectTest {
         proj.setRunning(false);
         int result2 = proj.getSecondsToday();
 
-        assertTrue(result == (int)result);
-        assertTrue(result2 == (int)result2);
-        assertNotEquals(result, result2);
-        assertTrue(result>=result2);
+        Assertions.assertEquals(result, result);
+        Assertions.assertEquals(result2, result2);
+        Assertions.assertNotEquals(result, result2);
+        Assertions.assertTrue(result>=result2);
     }
 
     @Test
@@ -316,10 +311,9 @@ public class ProjectTest {
         proj.setRunning(false);
         int result2 = proj.getSecondsOverall();
 
-        assertTrue(result == (int)result);
-        assertTrue(result2 == (int)result2);
-        assertNotEquals(result, result2);
-        assertTrue(result>=result2);
+        Assertions.assertEquals(result2, result2);
+        Assertions.assertNotEquals(result, result2);
+        Assertions.assertTrue(result>=result2);
     }
 
     // Doesn't change anything
@@ -350,7 +344,7 @@ public class ProjectTest {
             secondsToday = 0;
         }
 
-        Assert.assertEquals(secondsToday,sec);
+        Assertions.assertEquals(secondsToday, sec);
     }
 
     private static Stream<Arguments> provideAdjustValue() {
