@@ -24,7 +24,7 @@ public class ProjectTimeTest {
     public void testParseDate(){
         try{
             Date d = parseDate("07-12-2000");
-            assertEquals("Mon May 22 00:00:00 CET 13", d.toString());
+            assertEquals("Mon May 22 00:00:00 WET 13", d.toString());
         }catch (ParseException e){
             System.out.println(e.getMessage());
         }
