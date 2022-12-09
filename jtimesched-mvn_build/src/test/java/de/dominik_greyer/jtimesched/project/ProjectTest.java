@@ -64,8 +64,8 @@ public class ProjectTest {
 
         assert(!proj.isRunning());
 
-        assert(proj.getSecondsOverall() > nPreviousSecondsOverall);
-        assert(proj.getSecondsToday() > nPreviousSecondsToday);
+        assert(proj.getSecondsOverall() == nPreviousSecondsOverall + 1);
+        assert(proj.getSecondsToday() == nPreviousSecondsToday + 1);
 
         assertThrows(ProjectException.class, () -> {this.proj.pause();});
 
