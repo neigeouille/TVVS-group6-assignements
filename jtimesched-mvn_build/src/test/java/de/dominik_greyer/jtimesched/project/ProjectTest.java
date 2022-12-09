@@ -65,8 +65,8 @@ public class ProjectTest {
 
         assert(!proj.isRunning());
 
-        assert(proj.getSecondsOverall() == nPreviousSecondsOverall + 1);
-        assert(proj.getSecondsToday() == nPreviousSecondsToday + 1);
+        Assertions.assertTrue(proj.getSecondsOverall() > nPreviousSecondsOverall);
+        Assertions.assertTrue(proj.getSecondsToday() > nPreviousSecondsToday);
 
         assertThrows(ProjectException.class, () -> this.proj.pause());
 
@@ -205,13 +205,6 @@ public class ProjectTest {
         Assertions.assertFalse(this.proj.isRunning());
     }
 
-    @Test
-    public void toggleTest() {
-        this.proj.setRunning(true);
-        this.proj.toggle();
-        this.proj.toggle();
-    }
-
     @ParameterizedTest
     @MethodSource("provideAdjustValue")
     public void setSecondsOverallTest(int sec) {
@@ -224,22 +217,32 @@ public class ProjectTest {
         Assertions.assertEquals(sec, this.proj.getSecondsOverall());
     }
 
-    @ParameterizedTest
-    @MethodSource("provideAdjustValue")
-    public void adjustSecondsTodayTest (int secondsToday){
+    @Test
+    public void adjustSecondsTodayTest(){
+        this.proj.setRunning(true);
 
-        this.proj.adjustSecondsToday(secondsToday);
-        int sec = this.proj.getSecondsToday(); // begin at 0
+        int sec_today = 22;
+        this.proj.setSecondsToday(4);
+        int prev_overall = this.proj.getSecondsOverall();
 
-        if (secondsToday < 0) {
-            secondsToday = 0;
-        }
+        this.proj.adjustSecondsToday(sec_today);
 
-        int secondsDelta = sec - secondsToday;
+        Assertions.assertTrue(proj.getSecondsOverall() > prev_overall);
+        Assertions.assertEquals(sec_today, this.proj.getSecondsToday());
+    }
 
-        assert (this.proj.getSecondsOverall() == this.proj.getSecondsOverall() + secondsDelta);
+    @Test
+    public void adjustSecondsTodayTestNegative(){
+        this.proj.setRunning(true);
 
-        assert (sec == secondsToday);
+        int sec_today = -22;
+        this.proj.setSecondsToday(4);
+        int prev_overall = this.proj.getSecondsOverall();
+
+        this.proj.adjustSecondsToday(sec_today);
+
+        Assertions.assertTrue(proj.getSecondsOverall() <= prev_overall);
+        Assertions.assertEquals(0, this.proj.getSecondsToday());
     }
 
     @Test
@@ -316,23 +319,42 @@ public class ProjectTest {
         Assertions.assertTrue(result>=result2);
     }
 
-    // Doesn't change anything
+    // Todo : Doesn't change anything
     /*@Test
     public void testSetSecondsOverall(){
+        int val = 89;
+        Assertions.assertTrue(val>=0);
+
         proj.setRunning(false);
-        proj.setSecondsOverall(89);
+        proj.setSecondsOverall(val);
+
         int result = proj.getSecondsOverall();
-        assertTrue(result == (int)result);
-        assertNotEquals(0, result);
+        Assertions.assertTrue(result == (int)result);
+        Assertions.assertNotEquals(0, result);
     }*/
-    /*@Test
-    public void testSetSecondsOverallNegative(){
-        proj.setRunning(false);
-        proj.setSecondsOverall(-1);
-        int result = proj.getSecondsOverall();
-        assertTrue(result == (int)result);
-        assertEquals(0,result);
-    }*/
+
+    @Test
+    public void testSetSecondsOverall(){
+        proj.setRunning(true);
+
+        int val_neg = -1;
+        Assertions.assertTrue(val_neg<0);
+
+        int val_pos = 1;
+        Assertions.assertTrue(val_pos>=0);
+
+        proj.setSecondsOverall(val_neg);
+
+        int result_neg = proj.getSecondsOverall();
+        Assertions.assertTrue(result_neg == (int)result_neg);
+        Assertions.assertEquals(0,result_neg);
+
+        proj.setSecondsOverall(val_pos);
+
+        int result_pos = proj.getSecondsOverall();
+        Assertions.assertTrue(result_pos == (int)result_pos);
+        Assertions.assertEquals(val_pos,result_pos);
+    }
 
     @ParameterizedTest
     @MethodSource("provideAdjustValue")
@@ -357,4 +379,5 @@ public class ProjectTest {
 
         );
     }
+
 }
